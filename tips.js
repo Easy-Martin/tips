@@ -24,7 +24,7 @@
     if (local == 'top') {
       tipsEle.style.top = '8px';
     } else if (local == 'center') {
-      tipsEle.style.bottom = xL / 2 + 'px';
+      tipsEle.style.top = yT / 2 + 'px';
     } else {
       tipsEle.style.bottom = '8px';
     }
