@@ -13,14 +13,13 @@
     tipsEle.style.fontSize = '12px';
     tipsEle.style.background = '#333';
     tipsEle.style.color = '#fff';
-    tipsEle.style.padding = '2px 6px';
+    tipsEle.style.padding = '2px 6px 4px 6px';
     tipsEle.style.borderRadius = '2px';
     tipsEle.style.opacity = '0';
     tipsEle.style.zIndex = '9999';
-    tipsEle.style.transition = 'all 0.5s';
-    document.body.appendChild(tipsEle);
-    var xL = parseInt(document.body.clientWidth) - parseInt(tipsEle.clientWidth);
-    var yT = parseInt(document.body.clientHeight) - parseInt(tipsEle.clientHeight);
+    tipsEle.style.transition = 'opacity 0.5s';
+    tipsEle.style.left = '50%';
+    tipsEle.style.WebkitTransform = 'translate3d(-50%,0,0)';
     if (local == 'top') {
       tipsEle.style.top = '8px';
     } else if (local == 'center') {
@@ -28,16 +27,16 @@
     } else {
       tipsEle.style.bottom = '8px';
     }
-    tipsEle.style.left = xL / 2 + 'px';
+    document.body.appendChild(tipsEle);
     setTimeout(function() {
       tipsEle.style.opacity = '1';
-      setTimeout(function() {
-        tipsEle.style.opacity = '0';
-        setTimeout(function() {
-          document.body.removeChild(tipsEle);
-        }, 1000)
-      }, 800)
     }, 50);
+    setTimeout(function() {
+      tipsEle.style.opacity = '0';
+    }, 2000);
+    setTimeout(function() {
+      document.body.removeChild(tipsEle);
+    }, 2500);
   }
   if (typeof define === 'function' && define.amd) {
     define(function() {
