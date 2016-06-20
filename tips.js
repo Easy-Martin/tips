@@ -5,27 +5,28 @@
 */
 ;
 (function(global) {
-  var tips = function(tipStr, place) {
+  var tips = function(tipStr) {
+    if (!tipStr) {
+      throw new Error('param is empty');
+    }
     var tipsEle = document.createElement('span');
-    var local = place || 'bottom';
+    var _style = {
+      position:'absolute',
+      fontSize:'12px',
+      background:'#333',
+      color:'#fff',
+      padding:'2px 6px 4px 6px',
+      WebkitBorderRadius:'2px',
+      opacity:'0',
+      zIndex:'999',
+      WebkitTransition:'opacity 0.5s',
+      left:'50%',
+      bottom:'8px',
+      WebkitTransform:'translate3d(-50%,0,0)'
+    }
     tipsEle.innerHTML = tipStr;
-    tipsEle.style.position = 'absolute';
-    tipsEle.style.fontSize = '12px';
-    tipsEle.style.background = '#333';
-    tipsEle.style.color = '#fff';
-    tipsEle.style.padding = '2px 6px 4px 6px';
-    tipsEle.style.borderRadius = '2px';
-    tipsEle.style.opacity = '0';
-    tipsEle.style.zIndex = '9999';
-    tipsEle.style.transition = 'opacity 0.5s';
-    tipsEle.style.left = '50%';
-    tipsEle.style.WebkitTransform = 'translate3d(-50%,0,0)';
-    if (local == 'top') {
-      tipsEle.style.top = '8px';
-    } else if (local == 'center') {
-      tipsEle.style.top = yT / 2 + 'px';
-    } else {
-      tipsEle.style.bottom = '8px';
+    for (var variable in _style) {
+      tipsEle.style[variable] = _style[variable];
     }
     document.body.appendChild(tipsEle);
     setTimeout(function() {
