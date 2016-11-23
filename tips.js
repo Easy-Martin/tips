@@ -1,3 +1,4 @@
+'use strict'
 /*
   tips插件:
     @author HuangJingJing
@@ -9,6 +10,7 @@
     if (!tipStr) {
       throw new Error('param is empty');
     }
+    var num = 0;
     var tipsEle = document.createElement('span');
     var _style = {
       position:'absolute',
@@ -22,23 +24,36 @@
       WebkitTransition:'opacity 0.5s',
       left:'50%',
       bottom:'8px',
-      WebkitTransform:'translate3d(-50%,0,0)'
+      WebkitTransform:'translate3d(-50%,0,0)',
     }
     tipsEle.innerHTML = tipStr;
     for (var variable in _style) {
       tipsEle.style[variable] = _style[variable];
     }
     document.body.appendChild(tipsEle);
-    setTimeout(function() {
+    setTimeout(function(){
       tipsEle.style.opacity = '1';
-    }, 50);
-    setTimeout(function() {
-      tipsEle.style.opacity = '0';
-    }, 2000);
-    setTimeout(function() {
-      document.body.removeChild(tipsEle);
-    }, 2500);
-  }
+    },50)
+    
+    tipsEle.addEventListener('webkitTransitionEnd',function(){
+        num++;
+        switch (num) {
+          case 1:
+            setTimeout(function() {
+              tipsEle.style.opacity = '0';
+            }, 1000);
+            break;
+          case 2:
+            document.body.removeChild(tipsEle);
+            num = null;
+            tipsEle = null;
+            _style = null;
+            break;
+          default:
+            break;
+        }
+    },false)
+  };
   if (typeof define === 'function' && define.amd) {
     define(function() {
       return tips;
@@ -46,4 +61,4 @@
   } else {
     global.tips = tips;
   }
-})(this)
+})(this);
